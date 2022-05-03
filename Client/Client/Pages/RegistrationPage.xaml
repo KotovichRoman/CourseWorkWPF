@@ -1,0 +1,23 @@
+﻿<Page x:Class="Client.Pages.RegistrationPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="485" d:DesignWidth="400"
+      Title="LogIn" Foreground="White">
+    <Grid>
+        <TextBlock TextWrapping="Wrap" Text="Регистрация" HorizontalAlignment="Center" VerticalAlignment="Top" Height="60" FontSize="40" Margin="10" FontWeight="Light"/>
+        <StackPanel VerticalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" Text="Логин" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
+            <TextBox x:Name="LoginBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <TextBlock TextWrapping="Wrap" Text="Имя пользователя" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
+            <TextBox x:Name="NicknameBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <TextBlock TextWrapping="Wrap" Text="Пароль" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
+            <TextBox x:Name="PasswordBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <TextBlock TextWrapping="Wrap" Text="Подтверждение пароля" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
+            <TextBox x:Name="AcceptPasswordBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+        </StackPanel>
+    </Grid>
+</Page>
