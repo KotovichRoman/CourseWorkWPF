@@ -10,11 +10,11 @@ none
 false
 TRACE;DEBUG;NET;NET6_0;NETCOREAPP
 C:\Users\User\Desktop\GitHub\coursework\client\Client\App.xaml
-4-444686454
+11-865639812
 
-14-807126198
+17-1727919189
 216-2135255322
-Pages\LogInPage.xaml;Pages\RegistrationPage.xaml;Windows\Authorization.xaml;Windows\MainWindow.xaml;
+Pages\AlbumPage.xaml;Pages\LogInPage.xaml;Pages\MainPage.xaml;Pages\ProfilePage.xaml;Pages\RegistrationPage.xaml;Styles\Button.xaml;Styles\ButtonUndoRedo.xaml;Styles\DataGrid.xaml;Styles\TextBox.xaml;Windows\Authorization.xaml;Windows\MainWindow.xaml;
 
-False
+True
 

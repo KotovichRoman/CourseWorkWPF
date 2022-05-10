@@ -55,35 +55,74 @@ namespace Client.Windows
 
         private void LogButton_Click(object sender, RoutedEventArgs e)
         {
-            using (FischlifyContext context = new FischlifyContext()) {
+            using (FischlifyContext context = new FischlifyContext())
+            {
                 User user = new User();
 
                 if (LogButton.Content == "Зарегистрироваться")
-                {   
-                    user.UserLogin = registrationPage.LoginBox.Text;
-                    user.UserNickname = registrationPage.NicknameBox.Text;
-                    user.UserPassword = registrationPage.PasswordBox.Text;
-                    
-                    context.Users.Add(user);
-                    context.SaveChanges();
+                {
+                    try
+                    {
+                        user.UserLogin = registrationPage.LoginBox.Text;
+                        user.UserNickname = registrationPage.NicknameBox.Text;
+                        user.UserPassword = registrationPage.PasswordBox.Text;
+
+                        if (user.UserLogin == "" || user.UserNickname == "" || user.UserPassword == "")
+                        {
+                            throw new Exception("Заполните все поля");
+                        }
+                        if (user.UserPassword != registrationPage.AcceptPasswordBox.Text)
+                        {
+                            throw new Exception("Пароли не совпадают");
+                        }
+                        else
+                        {
+                            context.Users.Add(user);
+                            context.SaveChanges();
+
+                            ErrorTextBlock.Text = " ";
+
+                            RegButton_Click(sender, e);
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorTextBlock.Text = ex.Message;
+                    }
                 }
                 else
                 {
-                    user.UserLogin = logInPage.LoginBox.Text;
-                    user.UserPassword= logInPage.PasswordBox.Text;
-
-                    List<User> users = new List<User>();
-                    users = context.Users.ToList();
-
-                    foreach (User elem in users)
+                    try
                     {
-                        if (elem.UserLogin == user.UserLogin && elem.UserPassword == user.UserPassword)
-                        {
-                            MainWindow mainWindow = new MainWindow();
-                            mainWindow.Show();
+                        user.UserLogin = logInPage.LoginBox.Text;
+                        user.UserPassword = logInPage.PasswordBox.Text;
 
-                            Close();
+                        if (user.UserLogin == "" || user.UserPassword == "")
+                        {
+                            throw new Exception("Заполните все поля");
                         }
+
+                        List<User> users = new List<User>();
+                        users = context.Users.ToList();
+
+                        foreach (User elem in users)
+                        {
+                            if (elem.UserLogin == user.UserLogin && elem.UserPassword == user.UserPassword)
+                            {
+                                MainWindow mainWindow = new MainWindow();
+                                mainWindow.Show();
+
+                                Close();
+                            }
+                            else
+                            {
+                                throw new Exception("Такого пользователя не существует");
+                            }
+                        }
+                    }
+                    catch (Exception ex)
+                    {
+                        ErrorTextBlock.Text = ex.Message;
                     }
                 }
             }

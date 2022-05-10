@@ -60,3 +60,13 @@ C:\Users\User\Desktop\GitHub\coursework\Client\Client\bin\Debug\net6.0-windows\r
 C:\Users\User\Desktop\GitHub\coursework\Client\Client\bin\Debug\net6.0-windows\runtimes\win\lib\netstandard2.0\System.Runtime.Caching.dll
 C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Windows\MainWindow.g.cs
 C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Windows\MainWindow.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\Button.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\ButtonUndoRedo.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\TextBox.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Pages\MainPage.g.cs
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Pages\MainPage.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Pages\AlbumPage.g.cs
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Pages\AlbumPage.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Pages\ProfilePage.g.cs
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Pages\ProfilePage.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\DataGrid.baml

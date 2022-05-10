@@ -44,19 +44,12 @@ namespace Client
                     .HasMaxLength(256)
                     .HasColumnName("album_name");
 
-                entity.Property(e => e.TrackId).HasColumnName("track_id");
-
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
-                entity.HasOne(d => d.Track)
-                    .WithMany(p => p.Albums)
-                    .HasForeignKey(d => d.TrackId)
-                    .HasConstraintName("albums_tracks_pk");
+                entity.Property(e => e.AlbumImage)
+                    .HasMaxLength(256)
+                    .HasColumnName("album_image");
 
-                entity.HasOne(d => d.User)
-                    .WithMany(p => p.Albums)
-                    .HasForeignKey(d => d.UserId)
-                    .HasConstraintName("albums_users_pk");
             });
 
             modelBuilder.Entity<Genre>(entity =>
@@ -85,6 +78,10 @@ namespace Client
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
+                entity.Property(e => e.PlaylistImage)
+                    .HasMaxLength(256)
+                    .HasColumnName("playlist_image");
+
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Playlists)
                     .HasForeignKey(d => d.UserId)
@@ -99,11 +96,17 @@ namespace Client
 
                 entity.Property(e => e.GenreId).HasColumnName("genre_id");
 
+                entity.Property(e => e.TrackLink)
+                    .HasMaxLength(256)
+                    .HasColumnName("track_link");
+
                 entity.Property(e => e.TrackName)
                     .HasMaxLength(256)
                     .HasColumnName("track_name");
 
                 entity.Property(e => e.UserId).HasColumnName("user_id");
+
+                entity.Property(e => e.AlbumId).HasColumnName("album_id");
 
                 entity.HasOne(d => d.Genre)
                     .WithMany(p => p.Tracks)
@@ -114,6 +117,11 @@ namespace Client
                     .WithMany(p => p.Tracks)
                     .HasForeignKey(d => d.UserId)
                     .HasConstraintName("tracks_users_pk");
+
+                entity.HasOne(d => d.Album)
+                    .WithMany(p => p.Tracks)
+                    .HasForeignKey(d => d.AlbumId)
+                    .HasConstraintName("tracks_albums_pk");
             });
 
             modelBuilder.Entity<User>(entity =>

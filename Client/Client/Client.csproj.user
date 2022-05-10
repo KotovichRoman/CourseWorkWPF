@@ -7,7 +7,16 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Pages\AlbumPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\LogInPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\MainPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\ProfilePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\RegistrationPage.xaml.cs">
@@ -21,10 +30,31 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Pages\AlbumPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Pages\LogInPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Pages\MainPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\ProfilePage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Pages\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\Button.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ButtonUndoRedo.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\DataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\TextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\Authorization.xaml">
