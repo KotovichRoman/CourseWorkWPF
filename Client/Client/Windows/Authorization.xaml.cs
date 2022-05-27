@@ -14,6 +14,8 @@ using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Client.Pages;
 using Client.Class;
+using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace Client.Windows
 {
@@ -32,6 +34,26 @@ namespace Client.Windows
             navigationService = FrameInAuth.NavigationService;
             navigationService.Navigate(logInPage);
             RegButton.Content = "Регистрация";
+
+            Track track = new Track();
+            string filePath = "C:/Users/User/Desktop/Звоню Толяну в конце - Output - Stereo Out.mp3";
+            string filename = filePath.Substring(filePath.LastIndexOf('/') + 1);
+
+            using (FileStream fstream = new FileStream(filePath, FileMode.Open))
+            {
+                track.TrackLink = new byte[fstream.Length];
+                fstream.Read(track.TrackLink, 0, track.TrackLink.Length);
+            }
+
+            using (FischlifyContext context = new FischlifyContext())
+            {
+                foreach (Track track1 in context.Tracks)
+                {
+                    track1.TrackLink = track.TrackLink;
+                }
+
+                context.SaveChanges();
+            }
         }
 
         private void RegButton_Click(object sender, RoutedEventArgs e)
@@ -97,28 +119,27 @@ namespace Client.Windows
                         user.UserLogin = logInPage.LoginBox.Text;
                         user.UserPassword = logInPage.PasswordBox.Text;
 
+                        List<User> users = new List<User>();
+
                         if (user.UserLogin == "" || user.UserPassword == "")
                         {
                             throw new Exception("Заполните все поля");
                         }
 
-                        List<User> users = new List<User>();
-                        users = context.Users.ToList();
+                        var searchUser = context.Users.FirstOrDefault(x => x.UserLogin == user.UserLogin);
 
-                        foreach (User elem in users)
+                        if (searchUser != null)
                         {
-                            if (elem.UserLogin == user.UserLogin && elem.UserPassword == user.UserPassword)
-                            {
-                                MainWindow mainWindow = new MainWindow();
-                                mainWindow.Show();
+                            MainWindow mainWindow = new MainWindow(searchUser);
+                            mainWindow.Show();
 
-                                Close();
-                            }
-                            else
-                            {
-                                throw new Exception("Такого пользователя не существует");
-                            }
+                            Close();
                         }
+                        else
+                        {
+                            throw new Exception("Такого пользователя не существует");
+                        }
+                        
                     }
                     catch (Exception ex)
                     {

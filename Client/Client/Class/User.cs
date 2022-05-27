@@ -16,7 +16,8 @@ namespace Client.Class
         public string? UserLogin { get; set; }
         public string UserNickname { get; set; } = null!;
         public string UserPassword { get; set; } = null!;
-        public int? UserStatus { get; set; }
+        public int? UserStatus { get; set; } = (int?)Status.DefaultUser;
+        public byte? UserImage { get; set; }
 
         public virtual ICollection<Album> Albums { get; set; }
         public virtual ICollection<Playlist> Playlists { get; set; }

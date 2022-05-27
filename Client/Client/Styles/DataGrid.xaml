@@ -6,14 +6,14 @@
                 <ControlTemplate TargetType="{x:Type Button}">
                     <Grid>
                         <Rectangle x:Name="Border" Fill="{DynamicResource {x:Static SystemColors.ControlBrushKey}}" SnapsToDevicePixels="True"/>
-                        <Polygon x:Name="Arrow" Fill="Black" HorizontalAlignment="Right" Margin="8,8,3,3" Opacity="0.15" Points="0,10 10,10 10,0" Stretch="Uniform" VerticalAlignment="Bottom"/>
+                        <Polygon x:Name="Arrow" Fill="Black" HorizontalAlignment="Right" Margin="8,8,3,3" Opacity="0" Points="0,10 10,10 10,0" Stretch="Uniform" VerticalAlignment="Bottom"/>
                     </Grid>
                     <ControlTemplate.Triggers>
                         <Trigger Property="IsMouseOver" Value="True">
-                            <Setter Property="Stroke" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                            <Setter Property="Stroke" TargetName="Border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsPressed" Value="True">
-                            <Setter Property="Fill" TargetName="Border" Value="{DynamicResource {x:Static SystemColors.ControlDarkBrushKey}}"/>
+                            <Setter Property="Fill" TargetName="Border" Value="Transparent"/>
                         </Trigger>
                         <Trigger Property="IsEnabled" Value="False">
                             <Setter Property="Visibility" TargetName="Arrow" Value="Collapsed"/>
@@ -23,7 +23,14 @@
             </Setter.Value>
         </Setter>
     </Style>
+    <Style x:Key="Body_Content_DataGrid_Centering"
+	  TargetType="{x:Type DataGridCell}">
+        <Setter Property="VerticalAlignment"
+			Value="Center" />
+    </Style>
     <Style x:Key="DataGridStyle" TargetType="{x:Type DataGrid}">
+        <Setter Property="GridLinesVisibility" Value="None"/>
+        <Setter Property="RowBackground" Value="Transparent"/>
         <Setter Property="Background" Value="Transparent"/>
         <Setter Property="Foreground" Value="White"/>
         <Setter Property="BorderBrush" Value="Transparent"/>

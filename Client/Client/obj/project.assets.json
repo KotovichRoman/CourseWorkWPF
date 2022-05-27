@@ -1944,11 +1944,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\User\\Desktop\\GitHub\\coursework\\Client\\Client\\Client.csproj",
+      "projectUniqueName": "C:\\Users\\User\\Desktop\\GitHub\\coursework\\client\\Client\\Client.csproj",
       "projectName": "Client",
-      "projectPath": "C:\\Users\\User\\Desktop\\GitHub\\coursework\\Client\\Client\\Client.csproj",
+      "projectPath": "C:\\Users\\User\\Desktop\\GitHub\\coursework\\client\\Client\\Client.csproj",
       "packagesPath": "C:\\Users\\User\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\User\\Desktop\\GitHub\\coursework\\Client\\Client\\obj\\",
+      "outputPath": "C:\\Users\\User\\Desktop\\GitHub\\coursework\\client\\Client\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\User\\AppData\\Roaming\\NuGet\\NuGet.Config",
@@ -2010,7 +2010,7 @@
             "privateAssets": "none"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.202\\RuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.203\\RuntimeIdentifierGraph.json"
       }
     }
   }

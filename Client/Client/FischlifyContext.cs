@@ -22,6 +22,7 @@ namespace Client
         public virtual DbSet<Playlist> Playlists { get; set; } = null!;
         public virtual DbSet<Track> Tracks { get; set; } = null!;
         public virtual DbSet<User> Users { get; set; } = null!;
+        public virtual DbSet<TrackPlaylist> TrackPlaylists { get; set; } = null!;
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -47,7 +48,6 @@ namespace Client
                 entity.Property(e => e.UserId).HasColumnName("user_id");
 
                 entity.Property(e => e.AlbumImage)
-                    .HasMaxLength(256)
                     .HasColumnName("album_image");
 
             });
@@ -72,15 +72,7 @@ namespace Client
 
                 entity.Property(e => e.PlaylistId).HasColumnName("playlist_id");
 
-                entity.Property(e => e.PlaylistName)
-                    .HasMaxLength(256)
-                    .HasColumnName("playlist_name");
-
                 entity.Property(e => e.UserId).HasColumnName("user_id");
-
-                entity.Property(e => e.PlaylistImage)
-                    .HasMaxLength(256)
-                    .HasColumnName("playlist_image");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Playlists)
@@ -148,6 +140,32 @@ namespace Client
                 entity.Property(e => e.UserStatus)
                     .HasColumnName("user_status")
                     .HasDefaultValueSql("((0))");
+
+                entity.Property(e => e.UserImage)
+                    
+                    .HasColumnName("user_image");
+            });
+
+            modelBuilder.Entity<TrackPlaylist>(entity =>
+            {
+                entity.ToTable("tracks_playlists");
+
+                entity.Property(e => e.Id).HasColumnName("id");
+
+                entity.Property(e => e.TrackId).HasColumnName("track_id");
+
+                entity.Property(e => e.PlaylistId).HasColumnName("playlist_id");
+
+                entity.HasOne(d => d.Track)
+                    .WithMany(p => p.TrackPlaylists)
+                    .HasForeignKey(d => d.TrackId)
+                    .HasConstraintName("tracks_playlists_tracks_pk");
+                
+                entity.HasOne(d => d.Playlist)
+                    .WithMany(p => p.TrackPlaylists)
+                    .HasForeignKey(d => d.PlaylistId)
+                    .HasConstraintName("tracks_playlists_playlists_pk");
+
             });
 
             OnModelCreatingPartial(modelBuilder);

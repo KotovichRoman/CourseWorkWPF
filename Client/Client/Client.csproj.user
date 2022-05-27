@@ -7,6 +7,12 @@
     </ApplicationDefinition>
   </ItemGroup>
   <ItemGroup>
+    <Compile Update="Pages\AddAlbumPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\AdminPanelPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\AlbumPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
@@ -16,13 +22,28 @@
     <Compile Update="Pages\MainPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\MyPlaylistPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Pages\ProfilePage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Pages\RegistrationPage.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Update="Pages\SearchPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Pages\SettingsPage.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\AddTrackWindow.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Update="Windows\Authorization.xaml.cs">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Update="Windows\ChangeTrackWindow.xaml.cs">
       <SubType>Code</SubType>
     </Compile>
     <Compile Update="Windows\MainWindow.xaml.cs">
@@ -30,6 +51,12 @@
     </Compile>
   </ItemGroup>
   <ItemGroup>
+    <Page Update="Pages\AddAlbumPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\AdminPanelPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Pages\AlbumPage.xaml">
       <SubType>Designer</SubType>
     </Page>
@@ -39,10 +66,19 @@
     <Page Update="Pages\MainPage.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Pages\MyPlaylistPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Pages\ProfilePage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Pages\RegistrationPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\SearchPage.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Pages\SettingsPage.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\Button.xaml">
@@ -51,13 +87,25 @@
     <Page Update="Styles\ButtonUndoRedo.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\CheckBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\DataGrid.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Styles\ListBoxItem.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Styles\TextBox.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Windows\AddTrackWindow.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Windows\Authorization.xaml">
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Update="Windows\ChangeTrackWindow.xaml">
       <SubType>Designer</SubType>
     </Page>
     <Page Update="Windows\MainWindow.xaml">

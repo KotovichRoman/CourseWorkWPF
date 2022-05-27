@@ -1,10 +1,17 @@
 ﻿
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\App.xaml;;
+FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\AddAlbumPage.xaml;;
+FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\AdminPanelPage.xaml;;
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\AlbumPage.xaml;;
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\LogInPage.xaml;;
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\MainPage.xaml;;
+FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\MyPlaylistPage.xaml;;
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\ProfilePage.xaml;;
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\RegistrationPage.xaml;;
+FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\SearchPage.xaml;;
+FC:\Users\User\Desktop\GitHub\coursework\client\Client\Pages\SettingsPage.xaml;;
+FC:\Users\User\Desktop\GitHub\coursework\client\Client\Windows\AddTrackWindow.xaml;;
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\Windows\Authorization.xaml;;
+FC:\Users\User\Desktop\GitHub\coursework\client\Client\Windows\ChangeTrackWindow.xaml;;
 FC:\Users\User\Desktop\GitHub\coursework\client\Client\Windows\MainWindow.xaml;;
 

@@ -22,24 +22,31 @@ namespace Client.Pages
     /// </summary>
     public partial class MainPage : Page
     {
-        List<User> users = new List<User>();
+        private List<User> users = new List<User>();
+        private User pageUser = new User();
+
         public MainPage()
         {
             InitializeComponent();
+        }
+        public MainPage(User currentUser)
+        {
+            InitializeComponent();
+
+            pageUser = currentUser;
             
             using (FischlifyContext context = new FischlifyContext())
             {
-                foreach (User user in context.Users)
-                {
-                    users.Add(user);
-                }
+                users = context.Users.ToList();
                 foreach (Album album in context.Albums)
                 {
-                    if (users[0].UserId == album.UserId)
-                    {
-                        Album selectedAlbum = album;
-                        selectedAlbum.User.UserNickname = users[0].UserNickname;
-                        AlbumsList.Items.Add(selectedAlbum);
+                    foreach (User user in users) {
+                        if (user.UserId == album.UserId)
+                        {
+                            Album selectedAlbum = album;
+                            selectedAlbum.User.UserNickname = user.UserNickname;
+                            AlbumsList.Items.Add(selectedAlbum);
+                        }
                     }
                 }
             }
@@ -47,7 +54,8 @@ namespace Client.Pages
 
         private void AlbumsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            AlbumPage albumPage = new AlbumPage(AlbumsList.SelectedItem);
+            Album album = (Album)AlbumsList.SelectedItem;
+            AlbumPage albumPage = new AlbumPage(album, pageUser);
 
             MainWindow.link.navigationService.Navigate(albumPage);
         }

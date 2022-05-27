@@ -5,13 +5,15 @@ namespace Client.Class
 {
     public partial class Playlist
     {
+        public Playlist()
+        {
+            TrackPlaylists = new HashSet<TrackPlaylist>();
+        }
 
         public int PlaylistId { get; set; }
-        public string PlaylistName { get; set; } = null!;
         public int? UserId { get; set; }
-        public string? PlaylistImage { get; set; }
 
-        public virtual User? User { get; set; }        
-
+        public virtual User? User { get; set; }
+        public virtual ICollection<TrackPlaylist> TrackPlaylists { get; set; }
     }
 }

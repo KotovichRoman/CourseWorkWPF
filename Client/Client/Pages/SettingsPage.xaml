@@ -1,0 +1,62 @@
+﻿<Page x:Class="Client.Pages.SettingsPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Client.Pages"
+      mc:Ignorable="d" 
+      d:DesignHeight="450" d:DesignWidth="800"
+      Title="SettingsPage">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.5*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+            <RowDefinition Height="0.2*"></RowDefinition>
+        </Grid.RowDefinitions>
+        <StackPanel Orientation="Horizontal" Grid.Row="0" >
+            <Image x:Name="UserImage" Width="100" Height="100" Margin="10, 0, 0, 0"></Image>
+            <StackPanel VerticalAlignment="Center" Margin="10, 0">
+                <TextBlock x:Name="UserLogin" Foreground="White" FontSize="15" Margin="0, 0, 0 2" />
+                <TextBlock x:Name="UserNickname" Foreground="White" FontSize="30" Margin="0, 0, 0 2"></TextBlock>
+            </StackPanel>
+        </StackPanel>
+        <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" Text="Старый пароль" FontSize="18" Margin="25, 0, 0, 5" FontWeight="Light" Foreground="White"/>
+            <TextBox x:Name="OldPasswordBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <TextBlock TextWrapping="Wrap" Text="Новый Пароль" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light" Foreground="White"/>
+            <TextBox x:Name="NewPasswordBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <TextBlock TextWrapping="Wrap" Text="Подтверждение пароля" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light" Foreground="White"/>
+            <TextBox x:Name="AcceptPasswordBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+        </StackPanel>
+        <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" Text="Новый логин" FontSize="18" Margin="25, 0, 0, 5" FontWeight="Light" Foreground="White"/>
+            <TextBox x:Name="NewLoginBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <TextBlock TextWrapping="Wrap" Text="Новый Никнейм" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light" Foreground="White"/>
+            <TextBox x:Name="NewNicknameBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+        </StackPanel>
+        <StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
+            <TextBlock TextWrapping="Wrap" Text="Статус профиля" FontSize="18" Margin="25, 0, 0, 5" FontWeight="Light" Foreground="White"/>
+            <ComboBox x:Name="StatusUserBox" Width="200" Height="30" FontSize="16" FontWeight="Light" Text="Слушатель">
+                <ComboBoxItem>
+                    <TextBlock Text="Слушатель" />
+                </ComboBoxItem>
+                <ComboBoxItem>
+                    <TextBlock Text="Автор" />
+                </ComboBoxItem>
+            </ComboBox>
+            <TextBlock TextWrapping="Wrap" Text="Новое изображение профиля" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light" Foreground="White"/>
+            <Button x:Name="NewImageButton" Content="Выбрать изображение" Style="{DynamicResource ButtonStyle}" Width="200" Height="30" 
+                    FontSize="16" FontWeight="Light" Click="NewImageButton_Click"/>
+        </StackPanel>
+        <TextBlock x:Name="ErrorTextBlock" Grid.ColumnSpan="2" Grid.Row="2" Foreground="#FFD20000" TextWrapping="Wrap" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <TextBlock x:Name="AcceptTextBlock" Grid.ColumnSpan="2" Grid.Row="2" Foreground="#FF22DC00" TextWrapping="Wrap" FontSize="14" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+        <Button x:Name="AcceptChangesButton" Grid.Column="2" Grid.Row="2" Width="150" Height="30" Content="Применить изменения" FontSize="13"
+                Style="{DynamicResource ButtonStyle}" Click="AcceptChangesButton_Click" FontWeight="Light"/>
+    </Grid>
+    
+</Page>
