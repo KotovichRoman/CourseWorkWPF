@@ -35,7 +35,7 @@ namespace Client.Windows
             navigationService.Navigate(logInPage);
             RegButton.Content = "Регистрация";
 
-            Track track = new Track();
+            /*Track track = new Track();
             string filePath = "C:/Users/User/Desktop/Звоню Толяну в конце - Output - Stereo Out.mp3";
             string filename = filePath.Substring(filePath.LastIndexOf('/') + 1);
 
@@ -53,7 +53,7 @@ namespace Client.Windows
                 }
 
                 context.SaveChanges();
-            }
+            }*/
         }
 
         private void RegButton_Click(object sender, RoutedEventArgs e)

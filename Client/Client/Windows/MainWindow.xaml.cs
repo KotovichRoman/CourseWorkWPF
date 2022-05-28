@@ -29,7 +29,6 @@ namespace Client.Windows
 
         public NavigationService navigationService;
         public User windowUser = new User();
-        public SearchPage searchPage = new SearchPage();
 
         private bool mediaPlayerIsPlaying = false;
         private bool userIsDraggingSlider = false;
@@ -74,7 +73,7 @@ namespace Client.Windows
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            Track track;
+            /*Track track;
 
             using (FischlifyContext context = new FischlifyContext())
             {
@@ -90,36 +89,34 @@ namespace Client.Windows
             } 
 
 
-            /*OpenFileDialog openFileDialog = new OpenFileDialog();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
 
             openFileDialog.FileName = System.Text.Encoding.Default.GetString();
 
-            MusicPlayer.Source = new Uri(openFileDialog.FileName);*/
-                //MusicPlayer.Play();
+            MusicPlayer.Source = new Uri(openFileDialog.FileName);
+                MusicPlayer.Play();*/
 
-                /*if (!mediaPlayerIsPlaying)
-                {
-                    MusicPlayer.Play();
-                    mediaPlayerIsPlaying = true;
-                    PlayButton.Content = "▌▐";
-                }
-                else
-                {
-                    MusicPlayer.Pause();
-                    mediaPlayerIsPlaying = false;
-                    PlayButton.Content = " ▶";
-                }*/
+            if (!mediaPlayerIsPlaying)
+            {
+                MusicPlayer.Play();
+                mediaPlayerIsPlaying = true;
+                PlayButton.Content = "▌▐";
+            }
+            else
+            {
+                MusicPlayer.Pause();
+                mediaPlayerIsPlaying = false;
+                PlayButton.Content = " ▶";
+            }
         }
 
         public void PlayMusic(Track track)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
-            
+            openFileDialog.FileName = track.TrackLink;
 
-            //openFileDialog.FileName = track.TrackLink;
-
-            //TrackImage.Source = BitmapFrame.Create(new Uri(track.Album.AlbumImage));
+            TrackImage.Source = BitmapFrame.Create(new Uri(track.Album.AlbumImage));
             TrackName.Text = track.TrackName;
             TrackArtist.Text = track.User.UserNickname;
             PlayButton.Content = "▌▐";
@@ -137,7 +134,7 @@ namespace Client.Windows
 
         private void SearchePageButton_Click(object sender, RoutedEventArgs e)
         {
-            
+            SearchPage searchPage = new SearchPage(windowUser);
             navigationService.Navigate(searchPage);
         }
 

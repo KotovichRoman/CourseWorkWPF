@@ -21,16 +21,16 @@
     </Style>
     <SolidColorBrush x:Key="OptionMark.Static.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="OptionMark.Static.Border" Color="#FFA10AF7"/>
-    <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="Red"/>
+    <SolidColorBrush x:Key="OptionMark.Static.Glyph" Color="White"/>
     <SolidColorBrush x:Key="OptionMark.MouseOver.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="OptionMark.MouseOver.Border" Color="#FFA10AF7"/>
-    <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="#FF212121"/>
+    <SolidColorBrush x:Key="OptionMark.MouseOver.Glyph" Color="White"/>
     <SolidColorBrush x:Key="OptionMark.Pressed.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="OptionMark.Pressed.Border" Color="#FFA10AF7"/>
-    <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="#FF212121"/>
+    <SolidColorBrush x:Key="OptionMark.Pressed.Glyph" Color="White"/>
     <SolidColorBrush x:Key="OptionMark.Disabled.Background" Color="Transparent"/>
     <SolidColorBrush x:Key="OptionMark.Disabled.Border" Color="#FFBCBCBC"/>
-    <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="#FF707070"/>
+    <SolidColorBrush x:Key="OptionMark.Disabled.Glyph" Color="White"/>
     <Style x:Key="CheckBoxStyle" TargetType="{x:Type CheckBox}">
         <Setter Property="FocusVisualStyle" Value="{StaticResource FocusVisual}"/>
         <Setter Property="Background" Value="{StaticResource OptionMark.Static.Background}"/>

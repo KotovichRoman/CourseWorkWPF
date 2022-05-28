@@ -7,8 +7,52 @@
       mc:Ignorable="d" 
       d:DesignHeight="450" d:DesignWidth="800"
       Title="AdminPanelPage">
-
     <Grid>
-        
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="0.3*"></ColumnDefinition>
+            <ColumnDefinition></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="0.3*"></RowDefinition>
+            <RowDefinition></RowDefinition>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Панель администратора" Foreground="White" FontSize="40" VerticalAlignment="Center" Margin="70, 0"/>
+        <StackPanel Grid.Row="1" Grid.Column="0">
+            <ComboBox x:Name="TableComboBox" VerticalContentAlignment="Center" Height="30" Margin="10" SelectionChanged="TableComboBox_SelectionChanged">
+                <ComboBoxItem Content="Users"></ComboBoxItem>
+                <ComboBoxItem Content="Tracks"></ComboBoxItem>
+                <ComboBoxItem Content="Albums"></ComboBoxItem>
+                <ComboBoxItem Content="Playlists"></ComboBoxItem>
+                <ComboBoxItem Content="Genres"></ComboBoxItem>
+                <ComboBoxItem Content="TrackPlaylists"></ComboBoxItem>
+            </ComboBox>
+            <Button x:Name="SaveDataButton" Style="{DynamicResource ButtonStyle}" Height="35" FontSize="16" Content="Сохранить изменения" Click="SaveDataButton_Click"/>
+        </StackPanel>
+        <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="DataTable" Grid.Row="1" Grid.Column="1" CellEditEnding="DataTable_CellEditEnding" AddingNewItem="DataTable_AddingNewItem" >
+
+            <DataGrid.Resources>
+                <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}" >
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="BorderThickness" Value="1 1 1 1"/>
+                    <Setter Property="Margin" Value="-1,-1,0,0" />
+                    <Setter Property="Height" Value="30" />
+                    <Setter Property="Width" Value="auto"/>
+                    <Setter Property="FontSize" Value="17"/>
+                    <Setter Property="HorizontalContentAlignment" Value="Center"/>
+                </Style>
+                <Style BasedOn="{StaticResource {x:Type DataGridRow}}" TargetType="{x:Type DataGridRow}" >
+                    <Setter Property="Background" Value="Transparent" />
+                    <Setter Property="Foreground" Value="White" />
+                    <Setter Property="BorderBrush" Value="Transparent"/>
+                    <Setter Property="Width" Value="auto"/>
+                    <Setter Property="Height" Value="40" />
+                    <Setter Property="TextBlock.TextAlignment" Value="Left" />
+                    <Setter Property="FontSize" Value="20"/>
+                    <Setter Property="VerticalAlignment" Value="Center"/>
+                </Style>
+            </DataGrid.Resources>
+        </DataGrid>
     </Grid>
 </Page>

@@ -14,7 +14,7 @@ namespace Client.Class
         public string TrackName { get; set; } = null!;
         public int? UserId { get; set; }
         public int? GenreId { get; set; }
-        public byte[] TrackLink { get; set; }
+        public string TrackLink { get; set; } = null!;
         public int? AlbumId { get; set; }
 
         public virtual Genre? Genre { get; set; }

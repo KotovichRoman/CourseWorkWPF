@@ -58,7 +58,7 @@ namespace Client.Windows
 
         private void ChangeTrackButton_Click(object sender, RoutedEventArgs e)
         {
-            //pageTrack.TrackLink = imgPath;
+            pageTrack.TrackLink = imgPath;
             pageTrack.TrackName = TrackName.Text;
 
             Close();

@@ -29,11 +29,6 @@ namespace Client.Pages
         List<Album> albums = new List<Album>();
         List<User> users = new List<User>();
 
-        public SearchPage()
-        {
-            InitializeComponent();
-        }
-
         public SearchPage(User user)
         {
             InitializeComponent();
@@ -47,8 +42,6 @@ namespace Client.Pages
                     GenreBox.Items.Add(genre.GenreName);
                 }
             }
-
-            TracksList.ItemsSource = null;
         }
 
         private void InputFuncTracksList()
@@ -56,14 +49,38 @@ namespace Client.Pages
             using (FischlifyContext context = new FischlifyContext())
             {
                 Regex regex = new Regex(SearchBox.Text);
+
+                List<TrackPlaylist> trackPlaylists = context.TrackPlaylists.ToList();
+                List<Genre> genres = context.Genres.ToList();
+                List<User> users = context.Users.ToList();
+                List<Album> albums = context.Albums.ToList();
+                Playlist playlist = context.Playlists.First(p => p.UserId == pageUser.UserId);
+
                 foreach (Track track in context.Tracks)
                 {
+                    track.Genre = genres.First(p => p.GenreId == track.GenreId);
+                    track.User = users.First(p => p.UserId == track.UserId);
+                    track.Album = albums.First(p => p.AlbumId == track.AlbumId);
+
+                    TrackChecked trackChecked = new TrackChecked(track, false);
                     MatchCollection matches = regex.Matches(track.TrackName);
+
+                    foreach (TrackPlaylist trackPlaylist in trackPlaylists)
+                    {
+                        if (playlist.PlaylistId == trackPlaylist.PlaylistId)
+                        {
+                            if (trackPlaylist.TrackId == track.TrackId)
+                            {
+                                trackChecked.IsChecked = true;
+                            }
+                        }
+                    }
+
                     if (matches.Count > 0)
                     {
                         tracks.Add(track);
-                        TracksList.Items.Add(track);
-                    }   
+                        TracksList.Items.Add(trackChecked);
+                    }
                 }
             }
         }
@@ -104,6 +121,27 @@ namespace Client.Pages
 
         private void SearchBox_TextChanged(object sender, TextChangedEventArgs e)
         {
+            ChangeTable();
+        }
+
+        private void AlbumsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            Album album = (Album)AlbumsList.SelectedItem;
+            AlbumPage albumPage = new AlbumPage(album, pageUser);
+
+            MainWindow.link.navigationService.Navigate(albumPage);
+        }
+
+        private void ArtistsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            User user = (User)ArtistsList.SelectedItem;
+            ProfilePage profilePage = new ProfilePage(pageUser, user);
+
+            MainWindow.link.navigationService.Navigate(profilePage);
+        }
+
+        private void ChangeTable()
+        {
             TracksList.Items.Clear();
             AlbumsList.Items.Clear();
             ArtistsList.Items.Clear();
@@ -133,22 +171,6 @@ namespace Client.Pages
             }
         }
 
-        private void AlbumsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            Album album = (Album)AlbumsList.SelectedItem;
-            AlbumPage albumPage = new AlbumPage(album, pageUser);
-
-            MainWindow.link.navigationService.Navigate(albumPage);
-        }
-
-        private void ArtistsList_SelectionChanged(object sender, SelectionChangedEventArgs e)
-        {
-            User user = (User)ArtistsList.SelectedItem;
-            ProfilePage profilePage = new ProfilePage(pageUser, user);
-
-            MainWindow.link.navigationService.Navigate(profilePage);
-        }
-
         private void SearchTypeBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
             if (SearchTypeBox.SelectedIndex == 0)
@@ -156,22 +178,64 @@ namespace Client.Pages
                 TracksList.Visibility = Visibility.Visible;
                 AlbumsList.Visibility = Visibility.Hidden;
                 ArtistsList.Visibility = Visibility.Hidden;
+                GenreBox.Visibility = Visibility.Visible;
                 TextChangedBlock.Text = "Песни";
             }
             else if (SearchTypeBox.SelectedIndex == 1)
             {
                 TracksList.Visibility = Visibility.Hidden;
-                AlbumsList.Visibility= Visibility.Visible;
-                ArtistsList.Visibility= Visibility.Hidden;
+                AlbumsList.Visibility = Visibility.Visible;
+                ArtistsList.Visibility = Visibility.Hidden;
+                GenreBox.Visibility = Visibility.Hidden;
+                GenreBox.Text = "";
                 TextChangedBlock.Text = "Альбомы";
             }
             else if (SearchTypeBox.SelectedIndex == 2)
             {
-                TracksList.Visibility= Visibility.Hidden;
+                TracksList.Visibility = Visibility.Hidden;
                 AlbumsList.Visibility = Visibility.Hidden;
                 ArtistsList.Visibility = Visibility.Visible;
+                GenreBox.Visibility= Visibility.Hidden;
+                GenreBox.Text = "";
                 TextChangedBlock.Text = "Исполнители";
             }
+
+            ChangeTable();
+        }
+
+        private void CheckAddTrackBox_Click(object sender, RoutedEventArgs e)
+        {
+            Track track = new Track();
+            CheckBox? checkBox = sender as CheckBox;
+
+            int index = Int32.Parse(checkBox.Tag.ToString());
+            track = tracks[index];
+
+            using (FischlifyContext context = new FischlifyContext())
+            {
+                Playlist playlist = context.Playlists.First(p => p.UserId == pageUser.UserId);
+                TrackPlaylist trackPlaylist = new TrackPlaylist();
+
+                if (checkBox.IsChecked == true)
+                {
+                    trackPlaylist.PlaylistId = playlist.PlaylistId;
+                    trackPlaylist.TrackId = track.TrackId;
+
+                    context.TrackPlaylists.Add(trackPlaylist);
+                }
+                else
+                {
+                    trackPlaylist = context.TrackPlaylists.First(p => p.PlaylistId == playlist.PlaylistId && p.TrackId == track.TrackId);
+                    context.TrackPlaylists.Remove(trackPlaylist);
+                }
+
+                context.SaveChanges();
+            }
+        }
+
+        private void GenreBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            ChangeTable();
         }
     }
 }

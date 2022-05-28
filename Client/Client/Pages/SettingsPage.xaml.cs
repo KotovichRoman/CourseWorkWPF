@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Client.Class;
+using Microsoft.Win32;
 
 namespace Client.Pages
 {
@@ -22,6 +23,7 @@ namespace Client.Pages
     public partial class SettingsPage : Page
     {
         private User pageUser = new User();
+        public string imgPath;
 
         public SettingsPage()
         {
@@ -34,23 +36,15 @@ namespace Client.Pages
 
             pageUser = user;
 
-            //UserImage.Source = BitmapFrame.Create(new Uri(pageUser.UserImage));
+            UserImage.Source = BitmapFrame.Create(new Uri(pageUser.UserImage));
             UserLogin.Text = pageUser.UserLogin;
             UserNickname.Text = pageUser.UserNickname;
 
-            if (pageUser.UserStatus == (int?)Status.DefaultUser)
+            if (pageUser.UserStatus == (int?)Status.Artist)
             {
-                StatusUserBox.SelectedIndex = 0;
+                ArtistCheck.IsChecked = true;
+                ArtistCheck.IsEnabled = true;
             }
-            else
-            {
-                StatusUserBox.SelectedIndex = 1;
-            }
-        }
-
-        private void NewImageButton_Click(object sender, RoutedEventArgs e)
-        {
-
         }
 
         private void AcceptChangesButton_Click(object sender, RoutedEventArgs e)
@@ -119,25 +113,49 @@ namespace Client.Pages
                         pageUser.UserNickname = NewNicknameBox.Text;
                     }
 
-                    if (StatusUserBox.Text != null)
+                    if (ArtistCheck.IsChecked == true)
                     {
-                        if (StatusUserBox.SelectedIndex == pageUser.UserStatus)
-                        {
-                            pageUser = saveUser;
-                            throw new Exception("Старый и новый статусы совпадают");
-                        }
-                        pageUser.UserStatus = StatusUserBox.SelectedIndex;
+                        pageUser.UserStatus = (int?)Status.Artist;
+                        ArtistCheck.IsEnabled = true;
                     }
+
+                    if (imgPath != null)
+                    {
+                        pageUser.UserImage = imgPath;
+                    }
+
+                    this.UserImage.Source = BitmapFrame.Create(new Uri(pageUser.UserImage));
+                    this.UserLogin.Text = pageUser.UserLogin;
+                    this.UserNickname.Text = pageUser.UserNickname;
 
                     context.Users.Update(pageUser);
                     context.SaveChanges();
+                    ErrorTextBlock.Text = "";
                     AcceptTextBlock.Text = "Изменения приняты";
                 }
             }
             catch (Exception ex)
             {
+                AcceptTextBlock.Text = "";
                 ErrorTextBlock.Text = ex.Message;
             }
+        }
+
+        private void ArtistCheck_Checked(object sender, RoutedEventArgs e)
+        {
+            ErrorTextBlock.Text = "В случае сохранения вашего нового статуса, все вами добавленные альбомы будут видны другим пользователя";
+        }
+
+        private void NewImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+
+            if (opf.ShowDialog() == false)
+            {
+                return;
+            }
+            string filename = opf.FileName;
+            imgPath = filename;
         }
     }
 }

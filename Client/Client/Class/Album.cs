@@ -12,7 +12,7 @@ namespace Client.Class
         public int AlbumId { get; set; }
         public string AlbumName { get; set; } = null!;
         public int? UserId { get; set; }
-        public byte? AlbumImage { get; set; }
+        public string AlbumImage { get; set; } = null!;
 
         public virtual User? User { get; set; }
 

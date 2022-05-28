@@ -22,7 +22,7 @@ namespace Client.Pages
     /// </summary>
     public partial class MyPlaylistPage : Page
     {
-        private Album pageAlbum = new Album();
+        private User pageUser = new User();
         public static List<Track> tracks = new List<Track>();
         public static List<Playlist> playlists = new List<Playlist>();
 
@@ -36,34 +36,40 @@ namespace Client.Pages
         {
             InitializeComponent();
 
+            pageUser = user;
+
             List<int?> TracksArray = new List<int?>();
 
             using (FischlifyContext context = new FischlifyContext())
             {
-                playlists = context.Playlists.ToList();
-                foreach (Playlist playlist in playlists)
+                List<TrackPlaylist> trackPlaylists = context.TrackPlaylists.ToList();
+                List<Genre> genres = context.Genres.ToList();
+                List<User> users = context.Users.ToList();
+                List<Album> albums = context.Albums.ToList();
+
+                Playlist playlist = context.Playlists.First(p => p.UserId == pageUser.UserId);
+
+                foreach (Track track in context.Tracks)
                 {
-                    if (playlist.UserId == user.UserId)
+                    track.Genre = genres.First(p => p.GenreId == track.GenreId);
+                    track.User = users.First(p => p.UserId == track.UserId);
+                    track.Album = albums.First(p => p.AlbumId == track.AlbumId);
+
+                    TrackChecked trackChecked = new TrackChecked(track, false);
+
+                    foreach (TrackPlaylist trackPlaylist in trackPlaylists)
                     {
-                        foreach (TrackPlaylist trackPlaylist in context.TrackPlaylists)
+                        if (playlist.PlaylistId == trackPlaylist.PlaylistId)
                         {
-                            if (playlist.PlaylistId == trackPlaylist.PlaylistId)
+                            if (trackPlaylist.TrackId == track.TrackId)
                             {
-                                TracksArray.Add(trackPlaylist.TrackId);
+                                trackChecked.IsChecked = true;
                             }
                         }
                     }
-                }
-                foreach (Track track in context.Tracks)
-                {
-                    foreach (var trackNum in TracksArray)
-                    {
-                        if (trackNum == track.TrackId)
-                        {
-                            tracks.Add(track);
-                            TracksList.Items.Add(track);
-                        }
-                    }
+
+                    tracks.Add(track);
+                    TracksList.Items.Add(trackChecked);
                 }
             }
         }
@@ -77,6 +83,36 @@ namespace Client.Pages
             track = tracks[index];
 
             MainWindow.link.PlayMusic(track);
+        }
+
+        private void CheckAddTrackBox_Click(object sender, RoutedEventArgs e)
+        {
+            Track track = new Track();
+            CheckBox? checkBox = sender as CheckBox;
+
+            int index = Int32.Parse(checkBox.Tag.ToString());
+            track = tracks[index];
+
+            using (FischlifyContext context = new FischlifyContext())
+            {
+                Playlist playlist = context.Playlists.First(p => p.UserId == pageUser.UserId);
+                TrackPlaylist trackPlaylist = new TrackPlaylist();
+
+                if (checkBox.IsChecked == true)
+                {
+                    trackPlaylist.PlaylistId = playlist.PlaylistId;
+                    trackPlaylist.TrackId = track.TrackId;
+
+                    context.TrackPlaylists.Add(trackPlaylist);
+                }
+                else
+                {
+                    trackPlaylist = context.TrackPlaylists.First(p => p.PlaylistId == playlist.PlaylistId && p.TrackId == track.TrackId);
+                    context.TrackPlaylists.Remove(trackPlaylist);
+                }
+
+                context.SaveChanges();
+            }
         }
     }
 }

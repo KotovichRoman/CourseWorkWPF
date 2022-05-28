@@ -39,7 +39,7 @@ namespace Client.Pages
             pageUser = user;
 
             pageAlbum = album;
-            //AlbumImage.Source = BitmapFrame.Create(new Uri(pageAlbum.AlbumImage));
+            AlbumImage.Source = BitmapFrame.Create(new Uri(pageAlbum.AlbumImage));
             AlbumName.Text = pageAlbum.AlbumName;
             UserName.Text = pageAlbum.User.UserNickname;
 
@@ -48,7 +48,7 @@ namespace Client.Pages
                 List<TrackPlaylist> trackPlaylists = context.TrackPlaylists.ToList();
                 List<Genre> genres = context.Genres.ToList();
                 var selectedTracks = context.Tracks.Select(p => p).Where(p => p.AlbumId == pageAlbum.AlbumId);
-                var playlist = context.Playlists.First(p => p.UserId == pageUser.UserId);
+                Playlist playlist = context.Playlists.First(p => p.UserId == pageUser.UserId);
 
                 foreach (Track track in selectedTracks)
                 {

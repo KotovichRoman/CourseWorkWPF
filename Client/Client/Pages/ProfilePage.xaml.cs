@@ -36,7 +36,7 @@ namespace Client.Pages
 
             pageUser = user;
 
-            //UserImage.Source = BitmapFrame.Create(new Uri(user.UserImage));
+            UserImage.Source = BitmapFrame.Create(new Uri(user.UserImage));
             UserLogin.Text = user.UserLogin;
             UserNickname.Text = user.UserNickname;
 
@@ -71,7 +71,7 @@ namespace Client.Pages
 
             pageUser = user;
 
-            //UserImage.Source = BitmapFrame.Create(new Uri(currentUser.UserImage));
+            UserImage.Source = BitmapFrame.Create(new Uri(currentUser.UserImage));
             UserLogin.Text = currentUser.UserLogin;
             UserNickname.Text = currentUser.UserNickname;
 

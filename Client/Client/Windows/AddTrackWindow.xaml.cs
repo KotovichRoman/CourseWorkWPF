@@ -51,7 +51,7 @@ namespace Client.Windows
         private void AddTrackButton_Click(object sender, RoutedEventArgs e)
         {
             Track track = new Track();
-            //track.TrackLink = imgPath;
+            track.TrackLink = imgPath;
             track.TrackName = TrackName.Text;
 
             AddAlbumPage.link.TracksList.Items.Add(track);

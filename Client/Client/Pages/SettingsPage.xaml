@@ -40,15 +40,8 @@
             <TextBox x:Name="NewNicknameBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
         </StackPanel>
         <StackPanel Grid.Column="2" Grid.Row="1" VerticalAlignment="Center">
-            <TextBlock TextWrapping="Wrap" Text="Статус профиля" FontSize="18" Margin="25, 0, 0, 5" FontWeight="Light" Foreground="White"/>
-            <ComboBox x:Name="StatusUserBox" Width="200" Height="30" FontSize="16" FontWeight="Light" Text="Слушатель">
-                <ComboBoxItem>
-                    <TextBlock Text="Слушатель" />
-                </ComboBoxItem>
-                <ComboBoxItem>
-                    <TextBlock Text="Автор" />
-                </ComboBoxItem>
-            </ComboBox>
+            <CheckBox x:Name="ArtistCheck" Style="{DynamicResource CheckBoxStyle}" Foreground="White" Content="Я автор" FontSize="18" 
+                      HorizontalAlignment="Center" Checked="ArtistCheck_Checked" VerticalContentAlignment="Center" Margin="0, 15"/>
             <TextBlock TextWrapping="Wrap" Text="Новое изображение профиля" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light" Foreground="White"/>
             <Button x:Name="NewImageButton" Content="Выбрать изображение" Style="{DynamicResource ButtonStyle}" Width="200" Height="30" 
                     FontSize="16" FontWeight="Light" Click="NewImageButton_Click"/>

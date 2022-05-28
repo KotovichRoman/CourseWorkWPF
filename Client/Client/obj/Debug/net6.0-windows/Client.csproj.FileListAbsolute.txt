@@ -86,3 +86,5 @@ C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\W
 C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Windows\ChangeTrackWindow.baml
 C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\CheckBox.baml
 C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\ListBoxItem.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\ComboBox.baml
+C:\Users\User\Desktop\GitHub\coursework\client\Client\obj\Debug\net6.0-windows\Styles\ComboBoxItems.baml

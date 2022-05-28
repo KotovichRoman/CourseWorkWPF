@@ -33,7 +33,7 @@
                         </DataTemplate>
                     </DataGridTemplateColumn.CellTemplate>
                 </DataGridTemplateColumn>
-                <DataGridTextColumn Header="Название" Binding="{Binding Path=TrackName}" Width="1*">
+                <DataGridTextColumn Header="Название" Binding="{Binding Path=Track.TrackName}" Width="1*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -41,7 +41,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Автор" Binding="{Binding Path=User.UserNickname}" Width="1*">
+                <DataGridTextColumn Header="Автор" Binding="{Binding Path=Track.User.UserNickname}" Width="1*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -49,7 +49,7 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-                <DataGridTextColumn Header="Альбом" Binding="{Binding Path=Album.AlbumName}" Width="1*">
+                <DataGridTextColumn Header="Альбом" Binding="{Binding Path=Track.Album.AlbumName}" Width="1*">
                     <DataGridTextColumn.ElementStyle>
                         <Style TargetType="TextBlock">
                             <Setter Property="VerticalAlignment" Value="Center" />
@@ -57,7 +57,22 @@
                         </Style>
                     </DataGridTextColumn.ElementStyle>
                 </DataGridTextColumn>
-
+                <DataGridTextColumn Header="Жанр" Binding="{Binding Path=Track.Genre.GenreName}" Width="1*">
+                    <DataGridTextColumn.ElementStyle>
+                        <Style TargetType="TextBlock">
+                            <Setter Property="VerticalAlignment" Value="Center" />
+                            <Setter Property="Margin" Value="20, 0, 0, 0" />
+                        </Style>
+                    </DataGridTextColumn.ElementStyle>
+                </DataGridTextColumn>
+                <DataGridTemplateColumn x:Name="CheckColumn" Header="" Width="30">
+                    <DataGridTemplateColumn.CellTemplate>
+                        <DataTemplate>
+                            <CheckBox IsChecked="{Binding Path=IsChecked}" Tag="{Binding SelectedIndex, ElementName=TracksList}" 
+                                      HorizontalAlignment="Center" Click="CheckAddTrackBox_Click" Style="{DynamicResource CheckBoxStyle}"/>
+                        </DataTemplate>
+                    </DataGridTemplateColumn.CellTemplate>
+                </DataGridTemplateColumn>
             </DataGrid.Columns>
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}" >
