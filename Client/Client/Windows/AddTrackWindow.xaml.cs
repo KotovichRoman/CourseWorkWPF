@@ -23,6 +23,7 @@ namespace Client.Windows
     public partial class AddTrackWindow : Window
     {
         private string imgPath;
+        List<Genre> genres = new List<Genre>();
 
         public AddTrackWindow()
         {
@@ -30,7 +31,9 @@ namespace Client.Windows
 
             using (FischlifyContext context = new FischlifyContext())
             {
-                foreach (Genre genre in context.Genres)
+                genres = context.Genres.ToList();
+
+                foreach (Genre genre in genres)
                 {
                     GenreBox.Items.Add(genre.GenreName);
                 }
@@ -40,7 +43,7 @@ namespace Client.Windows
         private void ChooseTrackFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog opf = new OpenFileDialog();
-
+            opf.Filter = "Image files (*.mp3)|*.mp3|All files (*.*)|*.*";
             if (opf.ShowDialog() == false)
             {
                 return;
@@ -50,11 +53,25 @@ namespace Client.Windows
 
         private void AddTrackButton_Click(object sender, RoutedEventArgs e)
         {
-            Track track = new Track();
-            track.TrackLink = imgPath;
-            track.TrackName = TrackName.Text;
+            try
+            {
+                if (imgPath != null && GenreBox.Text != null && TrackName.Text != null)
+                {
+                    Track track = new Track();
+                    track.TrackLink = imgPath;
+                    track.TrackName = TrackName.Text;
 
-            AddAlbumPage.link.TracksList.Items.Add(track);
+                    int genre = GenreBox.SelectedIndex;
+                    track.Genre.GenreName = genres[genre].GenreName;
+
+                    AddAlbumPage.link.TracksList.Items.Add(track);
+                    Close();
+                }
+            }
+            catch (Exception ex)
+            {
+
+            }
         }
     }
 }

@@ -33,7 +33,8 @@
             </StackPanel>
             <StackPanel VerticalAlignment="Center" Margin="50,0">
                 <TextBlock Text="Название альбома" Foreground="White" FontSize="15" HorizontalAlignment="Center" Margin="0,10"/>
-                <Button x:Name="AlbumImage" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Content="Загрузить изображение"/>
+                <Button x:Name="AlbumImage" Style="{DynamicResource ButtonStyle}" Width="150" Height="30" Content="Загрузить изображение"
+                        Click="AlbumImage_Click"/>
             </StackPanel>
         </StackPanel>
         <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="TracksList" Grid.Row="1" Grid.Column="1">

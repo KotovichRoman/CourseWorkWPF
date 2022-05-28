@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Client.Class;
 using Client.Pages;
 using Client.Windows;
+using Microsoft.Win32;
 
 namespace Client.Pages
 {
@@ -26,6 +27,9 @@ namespace Client.Pages
         private User pageUser = new User();
         public static List<Track> tracks = new List<Track>();
         public static AddAlbumPage link;
+        public static int index;
+        private string imgPath;
+
         public AddAlbumPage()
         {
             InitializeComponent();
@@ -48,9 +52,7 @@ namespace Client.Pages
         {
             try
             {
-                Track track = new Track();
-
-                track = (Track)TracksList.SelectedItem;
+                Track track = (Track)TracksList.SelectedItem;
 
                 TracksList.Items.Remove(track);
             }
@@ -64,8 +66,8 @@ namespace Client.Pages
         {
             try
             {
-                Track track = new Track();
-                track = (Track)TracksList.SelectedItem;
+                Track track = (Track)TracksList.SelectedItem;
+                index = TracksList.SelectedIndex;
 
                 ChangeTrackWindow changeTrackWindow = new ChangeTrackWindow(track);
                 changeTrackWindow.Show();
@@ -74,6 +76,17 @@ namespace Client.Pages
             {
                 MessageBox.Show("Выберите песню");
             }
+        }
+
+        private void AlbumImage_Click(object sender, RoutedEventArgs e)
+        {
+            OpenFileDialog opf = new OpenFileDialog();
+            opf.Filter = "Image files (*.png;*.jpeg;*.jpg;*.bmp)|*.png;*.jpeg;*.jpg;*.bmp|All files (*.*)|*.*";
+            if (opf.ShowDialog() == false)
+            {
+                return;
+            }
+            imgPath = opf.FileName;
         }
     }
 }
