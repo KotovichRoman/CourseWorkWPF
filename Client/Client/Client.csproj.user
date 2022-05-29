@@ -102,6 +102,9 @@
     <Page Update="Styles\ListBoxItem.xaml">
       <SubType>Designer</SubType>
     </Page>
+    <Page Update="Styles\PasswordBox.xaml">
+      <SubType>Designer</SubType>
+    </Page>
     <Page Update="Styles\TextBox.xaml">
       <SubType>Designer</SubType>
     </Page>

@@ -75,77 +75,90 @@ namespace Client.Windows
             }
         }
 
-        private void LogButton_Click(object sender, RoutedEventArgs e)
+        private void Registration(object sender, RoutedEventArgs e)
         {
             using (FischlifyContext context = new FischlifyContext())
             {
                 User user = new User();
-
-                if (LogButton.Content == "Зарегистрироваться")
+                try
                 {
-                    try
+                    user.UserLogin = registrationPage.LoginBox.Text;
+                    user.UserNickname = registrationPage.NicknameBox.Text;
+                    user.UserPassword = registrationPage.PasswordBox.Password;
+
+                    if (user.UserLogin == "" || user.UserNickname == "" || user.UserPassword == "")
                     {
-                        user.UserLogin = registrationPage.LoginBox.Text;
-                        user.UserNickname = registrationPage.NicknameBox.Text;
-                        user.UserPassword = registrationPage.PasswordBox.Text;
-
-                        if (user.UserLogin == "" || user.UserNickname == "" || user.UserPassword == "")
-                        {
-                            throw new Exception("Заполните все поля");
-                        }
-                        if (user.UserPassword != registrationPage.AcceptPasswordBox.Text)
-                        {
-                            throw new Exception("Пароли не совпадают");
-                        }
-                        else
-                        {
-                            context.Users.Add(user);
-                            context.SaveChanges();
-
-                            ErrorTextBlock.Text = " ";
-
-                            RegButton_Click(sender, e);
-                        }
+                        throw new Exception("Заполните все поля");
                     }
-                    catch (Exception ex)
+                    if (user.UserPassword != registrationPage.AcceptPasswordBox.Password)
                     {
-                        ErrorTextBlock.Text = ex.Message;
+                        throw new Exception("Пароли не совпадают");
+                    }
+                    else
+                    {
+                        context.Users.Add(user);
+                        context.SaveChanges();
+
+                        ErrorTextBlock.Text = " ";
+
+                        RegButton_Click(sender, e);
                     }
                 }
-                else
+                catch (Exception ex)
                 {
-                    try
-                    {
-                        user.UserLogin = logInPage.LoginBox.Text;
-                        user.UserPassword = logInPage.PasswordBox.Text;
-
-                        List<User> users = new List<User>();
-
-                        if (user.UserLogin == "" || user.UserPassword == "")
-                        {
-                            throw new Exception("Заполните все поля");
-                        }
-
-                        var searchUser = context.Users.FirstOrDefault(x => x.UserLogin == user.UserLogin);
-
-                        if (searchUser != null)
-                        {
-                            MainWindow mainWindow = new MainWindow(searchUser);
-                            mainWindow.Show();
-
-                            Close();
-                        }
-                        else
-                        {
-                            throw new Exception("Такого пользователя не существует");
-                        }
-                        
-                    }
-                    catch (Exception ex)
-                    {
-                        ErrorTextBlock.Text = ex.Message;
-                    }
+                    ErrorTextBlock.Text = ex.Message;
                 }
+            }
+        }
+
+        private void AuthorizationUser()
+        {
+            using (FischlifyContext context = new FischlifyContext())
+            {
+                User user = new User();
+                try
+                {
+                    user.UserLogin = logInPage.LoginBox.Text;
+                    user.UserPassword = logInPage.PasswordBox.Text;
+
+                    List<User> users = new List<User>();
+
+                    if (user.UserLogin == "" || user.UserPassword == "")
+                    {
+                        throw new Exception("Заполните все поля");
+                    }
+
+                    var searchUser = context.Users.FirstOrDefault(x => x.UserLogin == user.UserLogin);
+
+                    if (searchUser != null)
+                    {
+                        MainWindow mainWindow = new MainWindow(searchUser);
+                        mainWindow.Show();
+
+                        Close();
+                    }
+                    else
+                    {
+                        throw new Exception("Такого пользователя не существует");
+                    }
+
+                }
+                catch (Exception ex)
+                {
+                    ErrorTextBlock.Text = ex.Message;
+                }
+            }
+        }
+
+        private void LogButton_Click(object sender, RoutedEventArgs e)
+        {
+            if (LogButton.Content == "Зарегистрироваться")
+            {
+                Registration(sender, e);
+            }
+            else
+            {
+                AuthorizationUser();
             }
         }
     }

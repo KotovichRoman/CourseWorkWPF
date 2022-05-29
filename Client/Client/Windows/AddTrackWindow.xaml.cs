@@ -23,20 +23,25 @@ namespace Client.Windows
     public partial class AddTrackWindow : Window
     {
         private string imgPath;
-        List<Genre> genres = new List<Genre>();
-
+        List<ComboBoxItem> genres = new List<ComboBoxItem>();
+        List<Genre> genresCollection = new List<Genre>();
         public AddTrackWindow()
         {
             InitializeComponent();
 
             using (FischlifyContext context = new FischlifyContext())
             {
-                genres = context.Genres.ToList();
+                genresCollection = context.Genres.ToList();
 
-                foreach (Genre genre in genres)
+                foreach (Genre genre in genresCollection)
                 {
-                    GenreBox.Items.Add(genre.GenreName);
+                    string currentGenre = genre.GenreName;
+                    ComboBoxItem item = new ComboBoxItem();
+                    item.Content = currentGenre;
+                    genres.Add(item);
                 }
+
+                GenreBox.ItemsSource = genres;
             }
         }
 
@@ -61,8 +66,10 @@ namespace Client.Windows
                     track.TrackLink = imgPath;
                     track.TrackName = TrackName.Text;
 
-                    int genre = GenreBox.SelectedIndex;
-                    track.Genre.GenreName = genres[genre].GenreName;
+                    FischlifyContext context = new FischlifyContext();
+                    string genre = ((ComboBoxItem)GenreBox.SelectedItem).Content.ToString();
+                    track.GenreId = context.Genres.First(p => p.GenreName == genre).GenreId;
+                    track.Genre = context.Genres.First(p => p.GenreId == track.GenreId);
 
                     AddAlbumPage.link.TracksList.Items.Add(track);
                     Close();
@@ -70,7 +77,7 @@ namespace Client.Windows
             }
             catch (Exception ex)
             {
-
+                MessageBox.Show(ex.Message);
             }
         }
     }

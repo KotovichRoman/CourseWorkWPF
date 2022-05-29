@@ -25,6 +25,7 @@ namespace Client.Pages
     public partial class AddAlbumPage : Page
     {
         private User pageUser = new User();
+        private Album pageAlbum = new Album();
         public static List<Track> tracks = new List<Track>();
         public static AddAlbumPage link;
         public static int index;
@@ -40,6 +41,29 @@ namespace Client.Pages
 
             pageUser = user;
             link = this;
+        }
+
+        public AddAlbumPage(User user, Album album)
+        {
+            InitializeComponent();
+
+            pageUser = user;
+            pageAlbum = album;
+
+            link = this;
+
+
+            using (FischlifyContext context = new FischlifyContext())
+            {
+                foreach (Track track in context.Tracks)
+                {
+                    if (track.AlbumId == album.AlbumId)
+                    {
+                        tracks.Add(track);
+                        TracksList.Items.Add(track);
+                    }
+                }
+            }
         }
 
         private void AddTrackButton_Click(object sender, RoutedEventArgs e)

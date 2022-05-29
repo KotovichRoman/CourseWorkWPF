@@ -15,9 +15,9 @@
             <TextBlock TextWrapping="Wrap" Text="Имя пользователя" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
             <TextBox x:Name="NicknameBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
             <TextBlock TextWrapping="Wrap" Text="Пароль" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
-            <TextBox x:Name="PasswordBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <PasswordBox Style="{DynamicResource PasswordBoxStyle}" x:Name="PasswordBox"  Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
             <TextBlock TextWrapping="Wrap" Text="Подтверждение пароля" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
-            <TextBox x:Name="AcceptPasswordBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <PasswordBox x:Name="AcceptPasswordBox" Style="{DynamicResource PasswordBoxStyle}"  Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
         </StackPanel>
     </Grid>
 </Page>

@@ -85,7 +85,7 @@ namespace Client.Pages {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Client;V1.0.0.0;component/pages/myplaylistpage.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Client;component/pages/myplaylistpage.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Pages\MyPlaylistPage.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

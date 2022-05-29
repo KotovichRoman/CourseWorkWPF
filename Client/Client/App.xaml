@@ -14,6 +14,7 @@
                 <ResourceDictionary Source="Styles/ListBoxItem.xaml" />
                 <ResourceDictionary Source="Styles/ComboBox.xaml" />
                 <ResourceDictionary Source="Styles/ComboBoxItems.xaml" />
+                <ResourceDictionary Source="Styles/PasswordBox.xaml" />
             </ResourceDictionary.MergedDictionaries>
         </ResourceDictionary>
     </Application.Resources>

@@ -23,6 +23,8 @@
                 <TextBlock x:Name="UserName" Foreground="#FF848484" FontSize="20"></TextBlock>
             </StackPanel>
         </StackPanel>
+        <Button x:Name="ChangeAlbumButton" Style="{DynamicResource ButtonStyle}" Content="Изменить" Width="150" Height="30" Click="ChangeAlbumButton_Click"
+                HorizontalAlignment="Right" Margin="50, 0" FontSize="18" Visibility="Hidden"/>
         <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="TracksList" Grid.Row="1">
             <DataGrid.Columns>
                 <DataGridTemplateColumn Header="#" Width="50">

@@ -115,5 +115,10 @@ namespace Client.Pages
                 context.SaveChanges();
             }
         }
+
+        private void ChangeAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+
+        }
     }
 }
