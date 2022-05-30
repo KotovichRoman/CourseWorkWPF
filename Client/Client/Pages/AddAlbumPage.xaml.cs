@@ -15,6 +15,7 @@ using System.Windows.Shapes;
 using Client.Class;
 using Client.Pages;
 using Client.Windows;
+using Client.Patterns.UnitOfWork;
 using Microsoft.Win32;
 
 namespace Client.Pages
@@ -26,6 +27,7 @@ namespace Client.Pages
     {
         private User pageUser = new User();
         private Album pageAlbum = new Album();
+        private UnitOfWork unit = new UnitOfWork();
         public static List<Track> tracks = new List<Track>();
         public static AddAlbumPage link;
         public static int index;
@@ -76,13 +78,17 @@ namespace Client.Pages
         {
             try
             {
+                if (TracksList.SelectedItem == null)
+                {
+                    throw new Exception("Выберите песню");
+                }
                 Track track = (Track)TracksList.SelectedItem;
 
                 TracksList.Items.Remove(track);
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Выберите песню");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -90,15 +96,20 @@ namespace Client.Pages
         {
             try
             {
+                if (TracksList.SelectedItem == null)
+                {
+                    throw new Exception("Выберите песню");
+                }
+
                 Track track = (Track)TracksList.SelectedItem;
                 index = TracksList.SelectedIndex;
 
                 ChangeTrackWindow changeTrackWindow = new ChangeTrackWindow(track);
                 changeTrackWindow.Show();
             }
-            catch
+            catch (Exception ex)
             {
-                MessageBox.Show("Выберите песню");
+                MessageBox.Show(ex.Message);
             }
         }
 
@@ -111,6 +122,32 @@ namespace Client.Pages
                 return;
             }
             imgPath = opf.FileName;
+        }
+
+        private void AddAlbumButton_Click(object sender, RoutedEventArgs e)
+        {
+            Album album = new Album();
+
+            album.AlbumName = AlbumName.Text;
+            album.AlbumImage = imgPath;
+            album.UserId = pageUser.UserId;
+
+            unit.AlbumRepository.Create(album);
+
+            foreach (Track track in tracks)
+            {
+                Track currentTrack = new Track();
+
+                currentTrack.TrackName = track.TrackName;
+                currentTrack.TrackLink = track.TrackLink;
+                currentTrack.GenreId = track.GenreId;
+                currentTrack.UserId = pageUser.UserId;
+                currentTrack.AlbumId = album.AlbumId;
+
+                unit.TrackRepository.Create(currentTrack);
+            }
+
+            unit.Save();
         }
     }
 }

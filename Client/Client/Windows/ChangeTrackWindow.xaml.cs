@@ -14,6 +14,7 @@ using System.Windows.Shapes;
 using Client.Class;
 using Client.Pages;
 using Microsoft.Win32;
+using Client.Patterns.UnitOfWork;
 
 namespace Client.Windows
 {
@@ -23,7 +24,10 @@ namespace Client.Windows
     public partial class ChangeTrackWindow : Window
     {
         private string imgPath;
-        Track pageTrack = new Track();
+        private List<Genre> genresCollection = new List<Genre>();
+        private List<ComboBoxItem> genres = new List<ComboBoxItem>();
+        private Track pageTrack = new Track();
+        private UnitOfWork unit = new UnitOfWork();
 
         public ChangeTrackWindow()
         {
@@ -37,16 +41,21 @@ namespace Client.Windows
             pageTrack = track;
 
             TrackName.Text = track.TrackName;
-            GenreBox.Text = track.Genre.GenreName;
             imgPath = track.TrackLink;
 
-            using (FischlifyContext context = new FischlifyContext())
+            genresCollection = (List<Genre>)unit.GenreRepository.GetList().ToList();
+
+            foreach (Genre genre in genresCollection)
             {
-                foreach (Genre genre in context.Genres)
-                {
-                    GenreBox.Items.Add(genre.GenreName);
-                }
+                string currentGenre = genre.GenreName;
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = currentGenre;
+                genres.Add(item);
             }
+
+            GenreBox.ItemsSource = genres;
+
+            GenreBox.Text = pageTrack.Genre.GenreName;
         }
 
         private void ChooseTrackFile_Click(object sender, RoutedEventArgs e)
@@ -64,15 +73,39 @@ namespace Client.Windows
         {
             int index = AddAlbumPage.index;
 
-            pageTrack.TrackLink = imgPath;
-            pageTrack.TrackName = TrackName.Text;
-            pageTrack.Genre.GenreName = (GenreBox.SelectedItem as ComboBoxItem).Content.ToString();
+            try
+            {
+                if (imgPath != null && GenreBox.Text != null && TrackName.Text != null)
+                {
+                    Track track = new Track();
+                    track.TrackLink = imgPath;
+                    track.TrackName = TrackName.Text;
 
-            AddAlbumPage.tracks.Insert(index, pageTrack);
-            AddAlbumPage.link.TracksList = null;
-            AddAlbumPage.link.TracksList.ItemsSource = AddAlbumPage.tracks;
+                    FischlifyContext context = new FischlifyContext();
+                    string genre = ((ComboBoxItem)GenreBox.SelectedItem).Content.ToString();
+                    track.GenreId = context.Genres.First(p => p.GenreName == genre).GenreId;
+                    track.Genre = context.Genres.First(p => p.GenreId == track.GenreId);
 
-            Close();
+                    AddAlbumPage.tracks.Insert(index, track);
+
+                    AddAlbumPage.link.TracksList.Items.Clear();
+
+                    foreach (Track track1 in AddAlbumPage.tracks)
+                    {
+                        AddAlbumPage.link.TracksList.Items.Add(track1);
+                    }
+                    
+                    Close();
+                }
+                else
+                {
+                    throw new Exception("Заполните все поля");
+                }
+            }
+            catch (Exception ex)
+            {
+                MessageBox.Show(ex.Message);
+            }
         }
     }
 }

@@ -27,9 +27,9 @@
         <Button Grid.Row="0" x:Name="SettingsButton" Style="{DynamicResource ButtonStyle}" HorizontalAlignment="Right"
                 Width="200" Height="35" Content="Редактирование профиля" FontSize="16" Click="SettingsButton_Click" Margin="30, 0"/>
         <TextBlock Grid.Row="1" Text="Альбомы" Foreground="White" FontSize="18" VerticalAlignment="Center" Margin="30, 0" />
-        <Button x:Name="AddAlbumButton" Grid.Row="1" Content="Добавить альбом" FontSize="15" Style="{DynamicResource ButtonStyle}" Width="200" 
-                Height="25" HorizontalAlignment="Right" Margin="0, 0, 30, 0" Click="AddAlbumButton_Click"/>
-        <ListBox x:Name="AlbumsList" ItemContainerStyle="{DynamicResource ListBoxItemContainerStyle1}" Grid.Row="2" Background="Transparent" HorizontalAlignment="Center" SelectionChanged="AlbumsList_SelectionChanged"
+        <Button x:Name="AddAlbumButton" Grid.Row="1" Content="Добавить альбом" FontSize="16" Style="{DynamicResource ButtonStyle}" Width="200" 
+                Height="35" HorizontalAlignment="Right" Margin="0, 0, 30, 0" Click="AddAlbumButton_Click"/>
+        <ListBox x:Name="AlbumsList" ItemContainerStyle="{DynamicResource ListBoxItemContainerStyle}" Grid.Row="2" Background="Transparent" HorizontalAlignment="Center" SelectionChanged="AlbumsList_SelectionChanged"
                   ScrollViewer.HorizontalScrollBarVisibility="Disabled" BorderBrush="#00ABADB3">
             <ListBox.ItemTemplate>
                 <DataTemplate>

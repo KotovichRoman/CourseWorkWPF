@@ -14,6 +14,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
 using Client.Class;
 using Client.Pages;
+using Client.Patterns.UnitOfWork;
 
 namespace Client.Windows
 {
@@ -25,24 +26,23 @@ namespace Client.Windows
         private string imgPath;
         List<ComboBoxItem> genres = new List<ComboBoxItem>();
         List<Genre> genresCollection = new List<Genre>();
+        private UnitOfWork unit = new UnitOfWork();
+
         public AddTrackWindow()
         {
             InitializeComponent();
 
-            using (FischlifyContext context = new FischlifyContext())
+            genresCollection = unit.GenreRepository.GetList().ToList();
+
+            foreach (Genre genre in genresCollection)
             {
-                genresCollection = context.Genres.ToList();
-
-                foreach (Genre genre in genresCollection)
-                {
-                    string currentGenre = genre.GenreName;
-                    ComboBoxItem item = new ComboBoxItem();
-                    item.Content = currentGenre;
-                    genres.Add(item);
-                }
-
-                GenreBox.ItemsSource = genres;
+                string currentGenre = genre.GenreName;
+                ComboBoxItem item = new ComboBoxItem();
+                item.Content = currentGenre;
+                genres.Add(item);
             }
+
+            GenreBox.ItemsSource = genres;
         }
 
         private void ChooseTrackFile_Click(object sender, RoutedEventArgs e)
@@ -60,7 +60,7 @@ namespace Client.Windows
         {
             try
             {
-                if (imgPath != null && GenreBox.Text != null && TrackName.Text != null)
+                if (imgPath != null || GenreBox.Text != null || TrackName.Text != null)
                 {
                     Track track = new Track();
                     track.TrackLink = imgPath;
@@ -73,6 +73,10 @@ namespace Client.Windows
 
                     AddAlbumPage.link.TracksList.Items.Add(track);
                     Close();
+                }
+                else
+                {
+                    throw new Exception("Заполните все поля"); 
                 }
             }
             catch (Exception ex)

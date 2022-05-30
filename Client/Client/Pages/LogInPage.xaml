@@ -13,7 +13,7 @@
             <TextBlock TextWrapping="Wrap" Text="Логин" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
             <TextBox x:Name="LoginBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
             <TextBlock TextWrapping="Wrap" Text="Пароль" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light"/>
-            <TextBox x:Name="PasswordBox" Style="{DynamicResource TextBoxRadius}" TextWrapping="Wrap" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <PasswordBox x:Name="PasswordBox" Style="{DynamicResource PasswordBoxStyle}" Width="350" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
         </StackPanel>
     </Grid>
 </Page>

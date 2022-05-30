@@ -60,9 +60,9 @@
                 <StackPanel>
                     <MediaElement x:Name="MusicPlayer" LoadedBehavior="Manual" />
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Top">
-                        <Button x:Name="PrevButton" Style="{DynamicResource ButtonUndoRedoStyle}" Width="40" Height="40" Content="◀◀" Margin="20, 10, 0, 0" Click="PrevButton_Click"/>
+                        <Button x:Name="PrevTrackButton" Style="{DynamicResource ButtonUndoRedoStyle}" Width="40" Height="40" Content="◀◀" Margin="20, 10, 0, 0" Click="PrevTrackButton_Click"/>
                         <Button x:Name="PlayButton" Style="{DynamicResource ButtonUndoRedoStyle}" Width="40" Height="40" Content=" ▶" FontSize="12" Margin="20, 10, 20, 0" Click="PlayButton_Click"/>
-                        <Button x:Name="NextButton" Style="{DynamicResource ButtonUndoRedoStyle}" Width="40" Height="40" Content=" ▶▶" Margin="0, 10, 20, 0" Click="NextButton_Click"/>
+                        <Button x:Name="NextTrackButton" Style="{DynamicResource ButtonUndoRedoStyle}" Width="40" Height="40" Content=" ▶▶" Margin="0, 10, 20, 0" Click="NextTrackButton_Click"/>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0, 10, 0, 0">
                         <TextBlock x:Name="CurrentMusicTime" TextWrapping="Wrap" Text="00:00" Foreground="White" Margin="0, 0, 10, 0"/>

@@ -88,7 +88,7 @@ namespace Client.Windows {
                 return;
             }
             _contentLoaded = true;
-            System.Uri resourceLocater = new System.Uri("/Client;component/windows/authorization.xaml", System.UriKind.Relative);
+            System.Uri resourceLocater = new System.Uri("/Client;V1.0.0.0;component/windows/authorization.xaml", System.UriKind.Relative);
             
             #line 1 "..\..\..\..\Windows\Authorization.xaml"
             System.Windows.Application.LoadComponent(this, resourceLocater);

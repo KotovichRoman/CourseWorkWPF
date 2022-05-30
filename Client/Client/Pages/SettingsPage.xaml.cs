@@ -56,32 +56,32 @@ namespace Client.Pages
             {
                 using (FischlifyContext context = new FischlifyContext())
                 {
-                    if (!(NewPasswordBox.Text == "" && AcceptPasswordBox.Text == "" && OldPasswordBox.Text == ""))
+                    if (!(NewPasswordBox.Password == "" && AcceptPasswordBox.Password == "" && OldPasswordBox.Password == ""))
                     {
-                        if (pageUser.UserPassword != OldPasswordBox.Text)
+                        if (pageUser.UserPassword != OldPasswordBox.Password)
                         {
                             throw new Exception("Старый пароль введён неверно");
                         }
-                        else if (pageUser.UserPassword == OldPasswordBox.Text && (NewPasswordBox.Text == "" || AcceptPasswordBox.Text == ""))
+                        else if (pageUser.UserPassword == OldPasswordBox.Password && (NewPasswordBox.Password == "" || AcceptPasswordBox.Password == ""))
                         {
                             throw new Exception("Заполните все поля");
                         }
-                        else if ((NewPasswordBox.Text != AcceptPasswordBox.Text && OldPasswordBox.Text == "") ||
-                            (NewPasswordBox.Text == AcceptPasswordBox.Text && OldPasswordBox.Text == ""))
+                        else if ((NewPasswordBox.Password != AcceptPasswordBox.Password && OldPasswordBox.Password == "") ||
+                            (NewPasswordBox.Password == AcceptPasswordBox.Password && OldPasswordBox.Password == ""))
                         {
                             throw new Exception("Введите текущий пароль");
                         }
-                        else if (NewPasswordBox.Text != AcceptPasswordBox.Text)
+                        else if (NewPasswordBox.Password != AcceptPasswordBox.Password)
                         {
                             throw new Exception("Пароли не совпадают");
                         }
-                        else if (NewPasswordBox.Text == OldPasswordBox.Text)
+                        else if (NewPasswordBox.Password == OldPasswordBox.Password)
                         {
                             throw new Exception("Старый и новый пароли совпадают");
                         }
                         else
                         {
-                            pageUser.UserPassword = NewPasswordBox.Text;
+                            pageUser.UserPassword = NewPasswordBox.Password;
                         }
                     }
 

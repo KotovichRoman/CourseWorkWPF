@@ -34,26 +34,6 @@ namespace Client.Windows
             navigationService = FrameInAuth.NavigationService;
             navigationService.Navigate(logInPage);
             RegButton.Content = "Регистрация";
-
-            /*Track track = new Track();
-            string filePath = "C:/Users/User/Desktop/Звоню Толяну в конце - Output - Stereo Out.mp3";
-            string filename = filePath.Substring(filePath.LastIndexOf('/') + 1);
-
-            using (FileStream fstream = new FileStream(filePath, FileMode.Open))
-            {
-                track.TrackLink = new byte[fstream.Length];
-                fstream.Read(track.TrackLink, 0, track.TrackLink.Length);
-            }
-
-            using (FischlifyContext context = new FischlifyContext())
-            {
-                foreach (Track track1 in context.Tracks)
-                {
-                    track1.TrackLink = track.TrackLink;
-                }
-
-                context.SaveChanges();
-            }*/
         }
 
         private void RegButton_Click(object sender, RoutedEventArgs e)
@@ -119,7 +99,7 @@ namespace Client.Windows
                 try
                 {
                     user.UserLogin = logInPage.LoginBox.Text;
-                    user.UserPassword = logInPage.PasswordBox.Text;
+                    user.UserPassword = logInPage.PasswordBox.Password;
 
                     List<User> users = new List<User>();
 
@@ -128,14 +108,21 @@ namespace Client.Windows
                         throw new Exception("Заполните все поля");
                     }
 
-                    var searchUser = context.Users.FirstOrDefault(x => x.UserLogin == user.UserLogin);
+                    User searchUser = context.Users.FirstOrDefault(x => x.UserLogin == user.UserLogin);
 
                     if (searchUser != null)
                     {
-                        MainWindow mainWindow = new MainWindow(searchUser);
-                        mainWindow.Show();
+                        if (searchUser.UserPassword == user.UserPassword)
+                        {
+                            MainWindow mainWindow = new MainWindow(searchUser);
+                            mainWindow.Show();
 
-                        Close();
+                            Close();
+                        }
+                        else
+                        {
+                            throw new Exception("Неверный пароль");
+                        }
                     }
                     else
                     {

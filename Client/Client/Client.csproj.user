@@ -93,9 +93,6 @@
     <Page Update="Styles\ComboBox.xaml">
       <SubType>Designer</SubType>
     </Page>
-    <Page Update="Styles\ComboBoxItems.xaml">
-      <SubType>Designer</SubType>
-    </Page>
     <Page Update="Styles\DataGrid.xaml">
       <SubType>Designer</SubType>
     </Page>

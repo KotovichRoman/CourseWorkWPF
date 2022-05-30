@@ -13,6 +13,7 @@ using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
 using Client.Class;
+using Client.Patterns.UnitOfWork;
 
 namespace Client.Pages
 {
@@ -29,6 +30,7 @@ namespace Client.Pages
         List<Genre> genres = new List<Genre>();
         List<TrackPlaylist> trackPlaylists = new List<TrackPlaylist>();
         List<int> toUpdate = new List<int>();
+        UnitOfWork unit = new UnitOfWork();
 
         public AdminPanelPage()
         {
@@ -42,120 +44,136 @@ namespace Client.Pages
             pageUser = user;
         }
 
-        private void UpdateTable()
+        private void SaveDataButton_Click(object sender, RoutedEventArgs e)
         {
-            int index = TableComboBox.SelectedIndex;
-            DataTable.ColumnWidth = 100;
+            unit.Save();
+            var item = TableComboBox.SelectedItem as ComboBoxItem;
+            string tableName = item.Content.ToString();
 
-            using (FischlifyContext context = new FischlifyContext())
+            if (tableName == "Users")
             {
-                switch (index)
-                {
-                    case 0:
-                        users = context.Users.ToList();
-                        DataTable.ItemsSource = users;
-                        DataTable.Columns[0].IsReadOnly = true;
-                        break;
-                    case 1:
-                        DataTable.ItemsSource = context.Tracks.ToList();
-                        break;
-                    case 2:
-                        DataTable.ItemsSource = context.Albums.ToList();
-                        break;
-                    case 3:
-                        DataTable.ItemsSource = context.Playlists.ToList();
-                        break;
-                    case 4:
-                        DataTable.ItemsSource = context.Genres.ToList();
-                        break;
-                    case 5:
-                        DataTable.ItemsSource = context.TrackPlaylists.ToList();
-                        break;
-                }
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.UserRepository.GetList();
             }
+            else if (tableName == "Tracks")
+            {
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.TrackRepository.GetList().ToList();
+            }
+            else if (tableName == "Albums")
+            {
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.AlbumRepository.GetList().ToList();
+            }
+            else if (tableName == "Playlists")
+            {
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.PlaylistRepository.GetList().ToList();
+            }
+            else if (tableName == "Genres")
+            {
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.GenreRepository.GetList().ToList();
+            }
+            else if (tableName == "TrackPlaylists")
+            {
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.TrackPlaylistRepository.GetList().ToList();
+            }
+
+            unit.Save();
+        }
+
+        private void DeleteDataButton_Click(object sender, RoutedEventArgs e)
+        {
+            var item = TableComboBox.SelectedItem as ComboBoxItem;
+            string tableName = item.Content.ToString();
+
+            if (tableName == "Users")
+            {
+                User user = (User)DataTable.SelectedItem;
+                unit.UserRepository.Delete(user.UserId);
+
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.UserRepository.GetList();
+            }
+            else if (tableName == "Tracks")
+            {
+                Track track = (Track)DataTable.SelectedItem;
+                unit.TrackRepository.Delete(track.TrackId);
+
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.TrackRepository.GetList().ToList();
+            }
+            else if (tableName == "Albums")
+            {
+                Album album = (Album)DataTable.SelectedItem;
+                unit.AlbumRepository.Delete(album.AlbumId);
+
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.AlbumRepository.GetList().ToList();
+            }
+            else if (tableName == "Playlists")
+            {
+                Playlist playlist = (Playlist)DataTable.SelectedItem;
+                unit.PlaylistRepository.Delete(playlist.PlaylistId);
+
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.PlaylistRepository.GetList().ToList();
+            }
+            else if (tableName == "Genres")
+            {
+                Genre genre = (Genre)DataTable.SelectedItem;
+                unit.GenreRepository.Delete(genre.GenreId);
+
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.GenreRepository.GetList().ToList();
+            }
+            else if (tableName == "TrackPlaylists")
+            {
+                TrackPlaylist track = (TrackPlaylist)DataTable.SelectedItem;
+                unit.TrackPlaylistRepository.Delete((int)track.Id);
+
+                DataTable.ItemsSource = null;
+                DataTable.ItemsSource = unit.TrackPlaylistRepository.GetList().ToList();
+            }
+
+            unit.Save();
         }
 
         private void TableComboBox_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateTable();
-        }
+            DataTable.ColumnWidth = 100;
 
-        private void DataTable_CellEditEnding(object sender, DataGridCellEditEndingEventArgs e)
-        {
-            toUpdate.Add(DataTable.SelectedIndex);
-        }
-
-        private void DataTable_AddingNewItem(object sender, AddingNewItemEventArgs e)
-        {
-            int index = TableComboBox.SelectedIndex;
-
-            using (FischlifyContext context = new FischlifyContext())
+            if (TableComboBox.SelectedIndex != -1)
             {
-                switch (index)
+                var item = TableComboBox.SelectedItem as ComboBoxItem;
+                string tableName = item.Content.ToString();
+                if (tableName == "Users")
                 {
-                    case 0:
-                        
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-                    case 5:
-
-                        break;
+                    DataTable.ItemsSource = unit.UserRepository.GetList().ToList();
                 }
-
-                context.SaveChanges();
-
-            }
-        }
-
-        private void SaveDataButton_Click(object sender, RoutedEventArgs e)
-        {
-            int index = TableComboBox.SelectedIndex;
-
-            using (FischlifyContext context = new FischlifyContext())
-            {
-                switch (index)
+                else if (tableName == "Tracks")
                 {
-                    case 0:
-                        User changeUser = (User)DataTable.Items[toUpdate[0]];
-                        User user = context.Users.First(p => p.UserId == changeUser.UserId);
-
-                        user.UserLogin = changeUser.UserLogin;
-                        user.UserNickname = changeUser.UserNickname;
-                        user.UserPassword = changeUser.UserPassword;
-                        user.UserStatus = changeUser.UserStatus;
-
-                        context.Users.Update(user);
-                        break;
-                    case 1:
-
-                        break;
-                    case 2:
-
-                        break;
-                    case 3:
-
-                        break;
-                    case 4:
-
-                        break;
-                    case 5:
-
-                        break;
+                    DataTable.ItemsSource = unit.TrackRepository.GetList().ToList();
                 }
-
-                context.SaveChanges();
-
+                else if (tableName == "Albums")
+                {
+                    DataTable.ItemsSource = unit.AlbumRepository.GetList().ToList();
+                }
+                else if (tableName == "Playlists")
+                {
+                    DataTable.ItemsSource = unit.PlaylistRepository.GetList().ToList();
+                }
+                else if (tableName == "Genres")
+                {
+                    DataTable.ItemsSource = unit.GenreRepository.GetList().ToList();
+                }
+                else if (tableName == "TrackPlaylists")
+                {
+                    DataTable.ItemsSource = unit.TrackPlaylistRepository.GetList().ToList();
+                }
+                DataTable.Columns[0].IsReadOnly = true;
             }
         }
     }

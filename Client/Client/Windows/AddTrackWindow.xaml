@@ -24,7 +24,16 @@
                     <Button x:Name="ChooseTrackFile" Style="{DynamicResource ButtonStyle}" Content="Загрузить файл" Height="30" Width="150" 
                             HorizontalAlignment="Left" Margin="20, 0" Click="ChooseTrackFile_Click"/>
                     <TextBlock TextWrapping="Wrap" Text="Выберите жанр" FontSize="18" Margin="25, 25, 0, 5" FontWeight="Light" Foreground="White"/>
-                    <ComboBox  x:Name="GenreBox" Width="350" Height="30" />
+                    <ComboBox  x:Name="GenreBox" Width="350" Height="30" Style="{DynamicResource ComboBoxStyle}">
+                        <ComboBox.Resources>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}">
+                                Transparent
+                            </SolidColorBrush>
+                            <SolidColorBrush x:Key="{x:Static SystemColors.WindowFrameBrushKey}">
+                                Transparent
+                            </SolidColorBrush>
+                        </ComboBox.Resources>
+                    </ComboBox>
                 </StackPanel>
                 <Button x:Name="AddTrackButton" Style="{DynamicResource ButtonStyle}" Width="200" Height="30" Content="Добавить"
                         HorizontalAlignment="Center" VerticalAlignment="Bottom" Margin="0, 50" Click="AddTrackButton_Click" />

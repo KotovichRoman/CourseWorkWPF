@@ -28,7 +28,9 @@ namespace Client.Windows
         public static MainWindow link;
 
         public NavigationService navigationService;
-        public User windowUser = new User();
+        private User windowUser = new User();
+        private List<Track> tracksInPlayer = new List<Track>();
+        private int currentIndex = new int();
 
         private bool mediaPlayerIsPlaying = false;
         private bool userIsDraggingSlider = false;
@@ -73,29 +75,6 @@ namespace Client.Windows
 
         private void PlayButton_Click(object sender, RoutedEventArgs e)
         {
-            /*Track track;
-
-            using (FischlifyContext context = new FischlifyContext())
-            {
-                track = context.Tracks.First(p => p.TrackId == 1);
-            }
-
-            using (FileStream fs = new FileStream(track.TrackName, FileMode.Open))
-            {
-                fs.Write(track.TrackLink, 0, track.TrackLink.Length);
-                MusicPlayer.Source = new Uri("Звоню Толяну в конце - Output - Stereo Out.mp3");
-                MusicPlayer.Play();
-                
-            } 
-
-
-            OpenFileDialog openFileDialog = new OpenFileDialog();
-
-            openFileDialog.FileName = System.Text.Encoding.Default.GetString();
-
-            MusicPlayer.Source = new Uri(openFileDialog.FileName);
-                MusicPlayer.Play();*/
-
             if (!mediaPlayerIsPlaying)
             {
                 MusicPlayer.Play();
@@ -110,8 +89,11 @@ namespace Client.Windows
             }
         }
 
-        public void PlayMusic(Track track)
+        public void PlayMusic(List<Track> tracks, int index)
         {
+            Track track = new Track();
+            track = tracks[index];
+
             OpenFileDialog openFileDialog = new OpenFileDialog();
 
             openFileDialog.FileName = track.TrackLink;
@@ -124,6 +106,9 @@ namespace Client.Windows
             MusicPlayer.Source = new Uri(openFileDialog.FileName);
             MusicPlayer.Play();
             mediaPlayerIsPlaying = true;
+
+            tracksInPlayer = tracks;
+            currentIndex = index;
         }
 
         private void MainPageButton_Click(object sender, RoutedEventArgs e)
@@ -150,19 +135,64 @@ namespace Client.Windows
             navigationService.Navigate(profilePage);
         }
 
-        private void PrevButton_Click(object sender, RoutedEventArgs e)
+        private void PrevTrackButton_Click(object sender, RoutedEventArgs e)
         {
-            navigationService.GoBack();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            Track track = new Track();
+
+            currentIndex--;
+
+            if (currentIndex < 0)
+            {
+                currentIndex = 0;
+            }
+
+            track = tracksInPlayer[currentIndex];
+
+            openFileDialog.FileName = track.TrackLink;
+
+            TrackImage.Source = BitmapFrame.Create(new Uri(track.Album.AlbumImage));
+            TrackName.Text = track.TrackName;
+            TrackArtist.Text = track.User.UserNickname;
+            PlayButton.Content = "▌▐";
+
+            MusicPlayer.Source = new Uri(openFileDialog.FileName);
+            MusicPlayer.Play();
+            mediaPlayerIsPlaying = true;
+
         }
 
-        private void NextButton_Click(object sender, RoutedEventArgs e)
+        private void NextTrackButton_Click(object sender, RoutedEventArgs e)
         {
-            navigationService.GoForward();
+            OpenFileDialog openFileDialog = new OpenFileDialog();
+            Track track = new Track();
+
+            currentIndex++;
+
+            if (currentIndex >= tracksInPlayer.Count)
+            {
+                currentIndex = 0;
+            }
+
+            track = tracksInPlayer[currentIndex];
+
+            openFileDialog.FileName = track.TrackLink;
+
+            TrackImage.Source = BitmapFrame.Create(new Uri(track.Album.AlbumImage));
+            TrackName.Text = track.TrackName;
+            TrackArtist.Text = track.User.UserNickname;
+            PlayButton.Content = "▌▐";
+
+            MusicPlayer.Source = new Uri(openFileDialog.FileName);
+            MusicPlayer.Play();
+            mediaPlayerIsPlaying = true;
         }
 
         private void MusicTimeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
         {
             CurrentMusicTime.Text = TimeSpan.FromSeconds(MusicTimeSlider.Value).ToString(@"mm\:ss");
+
+            MaxMusicTime.Text = MusicPlayer.NaturalDuration.TimeSpan.ToString(@"mm\:ss");
         }
 
         private void MusicTimeSlider_DragStarted(object sender, System.Windows.Controls.Primitives.DragStartedEventArgs e)

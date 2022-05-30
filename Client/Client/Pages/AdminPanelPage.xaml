@@ -18,17 +18,26 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0" Grid.ColumnSpan="2" Text="Панель администратора" Foreground="White" FontSize="40" VerticalAlignment="Center" Margin="70, 0"/>
         <StackPanel Grid.Row="1" Grid.Column="0">
-            <ComboBox x:Name="TableComboBox" VerticalContentAlignment="Center" Height="30" Margin="10" SelectionChanged="TableComboBox_SelectionChanged">
+            <ComboBox x:Name="TableComboBox" Style="{DynamicResource ComboBoxStyle}" VerticalContentAlignment="Center" Height="30" Foreground="White" Margin="10" SelectionChanged="TableComboBox_SelectionChanged">
                 <ComboBoxItem Content="Users"></ComboBoxItem>
                 <ComboBoxItem Content="Tracks"></ComboBoxItem>
                 <ComboBoxItem Content="Albums"></ComboBoxItem>
                 <ComboBoxItem Content="Playlists"></ComboBoxItem>
                 <ComboBoxItem Content="Genres"></ComboBoxItem>
                 <ComboBoxItem Content="TrackPlaylists"></ComboBoxItem>
+                <ComboBox.Resources>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowBrushKey}">
+                        Black
+                    </SolidColorBrush>
+                    <SolidColorBrush x:Key="{x:Static SystemColors.WindowFrameBrushKey}">
+                        Black
+                    </SolidColorBrush>
+                </ComboBox.Resources>
             </ComboBox>
-            <Button x:Name="SaveDataButton" Style="{DynamicResource ButtonStyle}" Height="35" FontSize="16" Content="Сохранить изменения" Click="SaveDataButton_Click"/>
+            <Button x:Name="SaveDataButton" Style="{DynamicResource ButtonStyle}" Height="35" FontSize="16" Content="Сохранить" Click="SaveDataButton_Click" Margin="10"/>
+            <Button x:Name="DeleteDataButton" Style="{DynamicResource ButtonStyle}" Height="35" FontSize="16" Content="Удалить" Click="DeleteDataButton_Click" Margin="10"/>
         </StackPanel>
-        <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="DataTable" Grid.Row="1" Grid.Column="1" CellEditEnding="DataTable_CellEditEnding" AddingNewItem="DataTable_AddingNewItem" >
+        <DataGrid Style="{DynamicResource DataGridStyle}" x:Name="DataTable" Grid.Row="1" Grid.Column="1" >
 
             <DataGrid.Resources>
                 <Style BasedOn="{StaticResource {x:Type DataGridColumnHeader}}" TargetType="{x:Type DataGridColumnHeader}" >

@@ -76,13 +76,11 @@ namespace Client.Pages
 
         private void DataGridButton_Click(object sender, RoutedEventArgs e)
         {
-            Track track = new Track();
             Button? button = sender as Button;
 
             int index = Int32.Parse(button.Tag.ToString());
-            track = tracks[index];
 
-            MainWindow.link.PlayMusic(track);
+            MainWindow.link.PlayMusic(tracks, index);
         }
 
         private void CheckAddTrackBox_Click(object sender, RoutedEventArgs e)

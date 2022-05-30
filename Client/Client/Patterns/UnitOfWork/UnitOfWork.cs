@@ -8,8 +8,8 @@ using Client.Class;
 
 namespace Client.Patterns.UnitOfWork
 {
-    public class UnitOfWork
-    {
+    public class UnitOfWork : IDisposable
+    { 
         private FischlifyContext context = new FischlifyContext();
         private UserRepository userRepository;
         private TrackRepository trackRepository;
@@ -48,7 +48,7 @@ namespace Client.Patterns.UnitOfWork
             { 
                 if (this.albumRepository == null)
                 {
-                    this.trackRepository = new TrackRepository(context);
+                    this.albumRepository = new AlbumRepository(context);
                 }
                 return albumRepository; 
             }
@@ -72,7 +72,7 @@ namespace Client.Patterns.UnitOfWork
             {
                 if (this.playlistRepository == null)
                 {
-                    this.genreRepository = new GenreRepository(context);
+                    this.playlistRepository = new PlaylistRepository(context);
                 }
                 return this.playlistRepository;
             }

@@ -27,11 +27,11 @@
         </StackPanel>
         <StackPanel Grid.Column="0" Grid.Row="1" VerticalAlignment="Center">
             <TextBlock TextWrapping="Wrap" Text="Старый пароль" FontSize="18" Margin="25, 0, 0, 5" FontWeight="Light" Foreground="White"/>
-            <TextBox x:Name="OldPasswordBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <PasswordBox x:Name="OldPasswordBox" Style="{DynamicResource PasswordBoxStyle}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
             <TextBlock TextWrapping="Wrap" Text="Новый Пароль" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light" Foreground="White"/>
-            <TextBox x:Name="NewPasswordBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <PasswordBox x:Name="NewPasswordBox" Style="{DynamicResource PasswordBoxStyle}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
             <TextBlock TextWrapping="Wrap" Text="Подтверждение пароля" FontSize="18" Margin="25, 15, 0, 5" FontWeight="Light" Foreground="White"/>
-            <TextBox x:Name="AcceptPasswordBox" Style="{DynamicResource TextBoxRadius}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
+            <PasswordBox x:Name="AcceptPasswordBox" Style="{DynamicResource PasswordBoxStyle}" Width="200" Height="25" FontSize="16" FontWeight="Light" MaxLength="40"/>
         </StackPanel>
         <StackPanel Grid.Column="1" Grid.Row="1" VerticalAlignment="Center">
             <TextBlock TextWrapping="Wrap" Text="Новый логин" FontSize="18" Margin="25, 0, 0, 5" FontWeight="Light" Foreground="White"/>
